@@ -1,43 +1,26 @@
 import React from 'react'
-import AddNewTodo from './components/AddNewTodo'
-import TodoList from './components/TodoList'
+import {BrowserRouter as Router, Route, Switch, Link} from 'react-router-dom'
+import Todo from './containers/Todo'
+import About from './containers/About'
+import User from './containers/User'
 
 class App extends React.Component {
-  state = {
-    message: 'Hallo classic fox',
-    todos: [
-      'Belajar Javascript',
-      'Ngecengin Rubhi',
-      'Nonton GOT'
-    ]
-  }
-  
-  changeMessage = () => {
-    this.setState({
-      message: 'Diubah dari change message'
-    })
-  }
-
-  submitTodo = newTodo => {
-    // console.log('Bapaknya ke trigger', newTodo)
-
-    this.setState({
-      todos: [...this.state.todos, newTodo]
-    }, () => {
-      console.log(this.state.todos)
-    })
-  }
-
   render() {
-    const { message, todos } = this.state
+    return (       
+      <Router>
+        <h1>My Awesome todo list</h1>
 
-    return ( <div>
-      <h1>My Awesome Todo List</h1>
-      
-      <TodoList todos={todos} />
-      <AddNewTodo onSubmitTodo={this.submitTodo} />
-      </div>
-    )
+        <Link to="/">Todo List</Link> | 
+        <Link to="/about">About Page</Link> |
+        <Link to="/user">User</Link> 
+
+        <Switch>
+          <Route path="/" exact component={Todo} />
+          <Route path="/about" component={About} />
+          <Route path="/user" component={User} />
+        </Switch>
+      </Router>
+    ) 
   }
 }
 
