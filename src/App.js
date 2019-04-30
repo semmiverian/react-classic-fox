@@ -1,26 +1,44 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from 'react'
+import AddNewTodo from './components/AddNewTodo'
+import TodoList from './components/TodoList'
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends React.Component {
+  state = {
+    message: 'Hallo classic fox',
+    todos: [
+      'Belajar Javascript',
+      'Ngecengin Rubhi',
+      'Nonton GOT'
+    ]
+  }
+  
+  changeMessage = () => {
+    this.setState({
+      message: 'Diubah dari change message'
+    })
+  }
+
+  submitTodo = newTodo => {
+    // console.log('Bapaknya ke trigger', newTodo)
+
+    this.setState({
+      todos: [...this.state.todos, newTodo]
+    }, () => {
+      console.log(this.state.todos)
+    })
+  }
+
+  render() {
+    const { message, todos } = this.state
+
+    return ( <div>
+      <h1>My Awesome Todo List</h1>
+      
+      <TodoList todos={todos} />
+      <AddNewTodo onSubmitTodo={this.submitTodo} />
+      </div>
+    )
+  }
 }
 
-export default App;
+export default App
