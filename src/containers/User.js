@@ -1,40 +1,36 @@
 import React, { Component } from 'react'
-import axios from 'axios'
+import { connect } from 'react-redux'
 
-export default class User extends Component {
+import { addMovie } from '../store/movie/actions'
+
+class User extends Component {
   state = {
     users: []
   }
 
   componentDidMount() {
-    axios
-    .get('https://jsonplaceholder.typicode.com/users')
-    .then(({data}) => {
-      this.setState({
-        users: data
-      })
-    })
-    .catch(err => {
-      console.log(err)
-    })
+    this.props.addMovie()
   }
-  
+
 
   render() {
-    const {users} = this.state
-        
+    const { movie } = this.props
     return (
       <div>
         {
-          users.length === 0 ? <h3>lagi Loading</h3> : (
-            <ul>
-              {
-                users.map(user => <li key={user.id}>{user.name}</li>)
-              }
-            </ul>
-          )    
+          JSON.stringify(movie)
         }
       </div>
     )
   }
 }
+
+const mapStatetoProps = (state) => ({
+  movie: state.movie
+})
+
+const mapDispatchtoProps = (dispatch) => ({
+  addMovie: () => dispatch(addMovie())
+})
+
+export default connect(mapStatetoProps, mapDispatchtoProps)(User)

@@ -1,6 +1,7 @@
 import React from 'react'
+import { connect } from 'react-redux'
 
-export default function TodoList({todos}) {
+const TodoList = ({todos, total}) => {
   return (
     <div>
         Ini Todo list
@@ -10,7 +11,19 @@ export default function TodoList({todos}) {
               <span>{todo}</span>
             </li>))
           }
-        </ul> 
+          <p>{total}</p>
+        </ul>
     </div>
   )
 }
+
+const petaStatekeProps = (state) => {
+  return {
+    todos: state.todo.todos,
+    total: state.todo.total
+  }
+}
+
+// const mapDispatchToProps = { increment, decrement, reset }
+
+export default connect(petaStatekeProps, null)(TodoList)

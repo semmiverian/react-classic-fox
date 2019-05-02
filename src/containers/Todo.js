@@ -11,7 +11,7 @@ export default class Todo extends Component {
       'Nonton GOT'
     ]
   }
-  
+
   changeMessage = () => {
     this.setState({
       message: 'Diubah dari change message'
@@ -30,10 +30,10 @@ export default class Todo extends Component {
 
   render() {
     const {todos} = this.state
-    
+
     return (
       <div>
-        <TodoList todos={todos} />
+        <TodoList/>
         <AddNewTodo onSubmitTodo={this.submitTodo} />
       </div>
     )
